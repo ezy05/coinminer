@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Page</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        .video-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            z-index: 1;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            color: yellow;
+            margin-bottom: 20px;
+        }
+        .access-form {
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #6a0dad;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop class="video-background">
+        <source src="background1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="container">
+        <div class="title">🔑 Access Key:</div>
+        <form class="access-form" onsubmit="return checkAccess()">
+            <input type="password" id="accessKey" placeholder="Enter the key">
+            <button type="submit">Enter</button>
+            <hr>
+            <button type="button" onclick="redirectToTelegram()">📩Get access key - message @Bakoz0(click me)</button>
+        </form>
+        <p id="accessMessage" style="color: white;"></p>
+    </div>
+
+    <script>
+        function checkAccess() {
+            const accessKey = document.getElementById('accessKey').value.trim();
+            const correctKey = 'bakoz2005'; // The correct key
+
+            if (accessKey === correctKey) {
+                window.location.href = 'ac.html'; // Redirect to the generation page
+                return false; // Prevent form submission
+            } else {
+                document.getElementById('accessMessage').innerText = 'Incorrect key. Please try again.';
+                return false; // Prevent form submission
+            }
+        }
+
+        function redirectToTelegram() {
+            window.location.href = 'https://t.me/Bakoz0';
+        }
+    </script>
+</body>
+</html>

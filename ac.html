@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot Predictor</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            flex-direction: column;
+        }
+        .video-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            transform: translate(80px, 50px); /* Adjust the position of the video */
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            color: yellow;
+            margin-bottom: 20px;
+        }
+        .probability {
+            font-size: 20px;
+            color: white;
+            margin-bottom: 20px;
+            display: none; /* Initially hidden */
+        }
+        .grid {
+            display: none; /* Initially hidden */
+            display: grid;
+            grid-template-columns: repeat(5, 50px);
+            grid-gap: 5px;
+            margin-bottom: 20px;
+        }
+        .cell {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            background-color: #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #6a0dad;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .footer {
+            text-align: center;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+        .footer .copyright {
+            font-weight: bold;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop class="video-background">
+        <source src="background1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <div class="container">
+        <div class="title">Coin Miner Bot</div>
+        <div class="probability" id="probability">Probability: </div>
+        <div class="grid" id="grid">
+            <!-- Grid cells will be generated here -->
+        </div>
+        <button onclick="generateGrid()">GENERATE</button>
+    </div>
+
+    <div class="footer">
+        <div class="copyright">© All copyrights reserved ©</div>
+        <hr>
+        <div>⚠️DISCLAIMER: Use at your own risk, it may cause financial losses⚠️</div>
+    </div>
+
+    <script>
+        const gridSize = 5;
+        const rightEmoji = '✅';
+        const wrongEmoji = '❌';
+
+        function generateGrid() {
+            const probabilityElement = document.getElementById('probability');
+            probabilityElement.style.display = 'block'; // Show probability after generating grid
+
+            const grid = document.getElementById('grid');
+            grid.style.display = 'grid'; // Show grid after generating
+
+            const probability = Math.floor(Math.random() * 71) + 20;
+            probabilityElement.innerText = `🚀 Probability: ${probability}%`;
+
+            grid.innerHTML = ''; // Clear the grid
+
+            let rightCount = 0;
+            const totalCells = gridSize * gridSize;
+
+            for (let i = 0; i < totalCells; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+
+                if (rightCount < 9 && Math.random() < (9 - rightCount) / (totalCells - i)) {
+                    cell.innerText = rightEmoji;
+                    rightCount++;
+                } else {
+                    cell.innerText = wrongEmoji;
+                }
+
+                grid.appendChild(cell);
+            }
+
+            // Move the "GENERATE" button below the grid
+            const container = document.querySelector('.container');
+            const generateButton = document.querySelector('button');
+            container.removeChild(generateButton); // Remove the button from its current position
+            container.appendChild(generateButton); // Add the button below the grid
+        }
+    </script>
+</body>
+</html>
